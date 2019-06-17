@@ -174,7 +174,7 @@ def make_map(): ## Run this inside the homepage route
     df = all_jobs[all_jobs['lat']!= 0]
     grp = all_jobs.groupby(by = 'job_id')
 
-    grp.apply(lambda x: plot_job_df(map,mc,x))
+    grp.agg(lambda x: plot_job_df(map,mc,x))
     map.fit_bounds([[df['lat'].min(),df['lon'].min()],
                     [df['lat'].max(),df['lon'].max()]])
     map.add_child(mc)
