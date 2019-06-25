@@ -17,6 +17,8 @@ from utils import object_storer
 
 app = Flask(__name__)
 
+def get_user_addresses():
+
 @app.route('/')
 def submission_page_default():
     return render_template('index_here.html', map_html = "<br>")
