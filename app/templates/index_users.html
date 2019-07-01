@@ -51,8 +51,10 @@
           <div class="card-header">
             <i class="fas fa-table"></i>
             User list</div>
+            <div class='scroll'>
           <div class="card-body">
             {{user_html|safe}}
+          </div>
           </div>
           <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>
@@ -123,7 +125,8 @@
   $(document).ready(function() {
     $('#users').DataTable({
       "paging": true,
-      "scrollX": true,
+      "scrollX": false,
+      "scrollCollapse": true,
       "order": [[ 2, "desc" ]]
     });
   });
