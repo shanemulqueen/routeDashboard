@@ -120,7 +120,10 @@ def make_map(): ## Run this inside the homepage route
         try:
             if (is_real(elem)):
                 print(elem['full_name'])
-                user_dict['address'].append("{} {} {}".format(elem['address'],elem['city'],elem['state']))
+                try:
+                    user_dict['address'].append("{} {} {}".format(elem['address'],elem['city'],elem['state']))
+                except:
+                    user_dict['address'].append("{} {} {}".format(elem['address'],'Brooklyn','NY'))
                 user_dict['email'].append(elem['email'])
                 user_dict['name'].append(elem['full_name'])
                 user_dict['Type'].append(store.user_type[elem['type']])
