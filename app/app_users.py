@@ -96,6 +96,7 @@ def make_map(): ## Run this inside the homepage route
     user_dict = {}
     user_dict['name']= []
     user_dict['address']= []
+    user_dict['modified']=[]
     user_dict['created']=[]
     user_dict['good_address']=[]
     user_dict['email']= []
@@ -106,6 +107,7 @@ def make_map(): ## Run this inside the homepage route
 
     email_only = {}
     email_only['name'] = []
+    email_only['modified'] = []
     email_only['created'] = []
     email_only['email'] = []
     email_only['Type']=[]
@@ -129,6 +131,8 @@ def make_map(): ## Run this inside the homepage route
                 user_dict['Type'].append(store.user_type[elem['type']])
                 epoch = int(str(elem['created_dt'])[:-3])
                 user_dict['created'].append(time.strftime("%Y-%m-%d", time.localtime(epoch)))
+                epoch = int(str(elem['modified_dt'])[:-3])
+                user_dict['modified'].append(time.strftime("%Y-%m-%d", time.localtime(epoch)))
                 print("success")
             else:
                 try:
@@ -139,6 +143,8 @@ def make_map(): ## Run this inside the homepage route
                             email_only['name'].append(elem['full_name'])
                             epoch = int(str(elem['created_dt'])[:-3])
                             email_only['created'].append(time.strftime("%Y-%m-%d", time.localtime(epoch)))
+                            epoch = int(str(elem['modified_dt'])[:-3])
+                            email_only['modified'].append(time.strftime("%Y-%m-%d", time.localtime(epoch)))
                             email_only['email'].append(elem['email'])
                             email_only['Type'].append(store.user_type[elem['type']])
                     except:
@@ -154,6 +160,8 @@ def make_map(): ## Run this inside the homepage route
                         email_only['name'].append(elem['full_name'])
                         epoch = int(str(elem['created_dt'])[:-3])
                         email_only['created'].append(time.strftime("%Y-%m-%d", time.localtime(epoch)))
+                        epoch = int(str(elem['modified_dt'])[:-3])
+                        email_only['modified'].append(time.strftime("%Y-%m-%d", time.localtime(epoch)))
                         email_only['email'].append(elem['email'])
                         email_only['Type'].append(store.user_type[elem['type']])
                 except:
@@ -199,9 +207,9 @@ def submission_page_default():
     registered['Background']='Yes'
     emails['Background']='No'
     emails['good_address']=0
-    both = emails.append(registered[['name','email','created','Type','Background','good_address']])
+    both = emails.append(registered[['name','email','modified','created','Type','Background','good_address']])
     user_html = both.sort_values(by = 'created',ascending=False).to_html(classes=['display','nowrap'],
-        columns = ['name','email','created','Type','Background','good_address'],
+        columns = ['name','email','modified','created','Type','Background','good_address'],
         table_id='users',index = False,justify = 'center',float_format=lambda x:'{:.1f}'.format(x))
     return render_template('index_users.html', user_html = user_html)
 
