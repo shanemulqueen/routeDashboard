@@ -30,11 +30,11 @@ def is_real(elem):
             return False
         elif len(elem['address'])< 4:
             return False
-        elif len(elem['full_name'])<= 4:
-            return False
         elif elem['full_name'] in store.bad_names:
             return False
         elif elem['address'] in store.bad_addresses:
+            return False
+        elif ("{} {}".format(elem['first_name'],elem['last_name']) in store.bad_names):
             return False
         else:
             return True
@@ -46,9 +46,7 @@ def is_good_email(elem):
             return False
         elif elem['email'].split('@')[1]=='upright.nyc':
             return False
-        elif len(elem['full_name'].split())<2:
-            return False
-        elif elem['full_name'] in store.bad_names:
+        elif ("{} {}".format(elem['first_name'],elem['last_name']) in store.bad_names):
             return False
         else:
             return True
@@ -121,13 +119,13 @@ def make_map(): ## Run this inside the homepage route
     for elem in resp['Items']:
         try:
             if (is_real(elem)):
-                print(elem['full_name'])
+                print("{} {}".format(elem['first_name'],elem['last_name']))
                 try:
                     user_dict['address'].append("{} {} {}".format(elem['address'],elem['city'],elem['state']))
                 except:
                     user_dict['address'].append("{} {} {}".format(elem['address'],'Brooklyn','NY'))
                 user_dict['email'].append(elem['email'])
-                user_dict['name'].append(elem['full_name'])
+                user_dict['name'].append("{} {}".format(elem['first_name'],elem['last_name']))
                 user_dict['Type'].append(store.user_type[elem['type']])
                 epoch = int(str(elem['created_dt'])[:-3])
                 user_dict['created'].append(time.strftime("%Y-%m-%d", time.localtime(epoch)))
@@ -140,7 +138,7 @@ def make_map(): ## Run this inside the homepage route
                 except:
                     try:
                         if is_good_email(elem):
-                            email_only['name'].append(elem['full_name'])
+                            email_only['name'].append("{} {}".format(elem['first_name'],elem['last_name']))
                             epoch = int(str(elem['created_dt'])[:-3])
                             email_only['created'].append(time.strftime("%Y-%m-%d", time.localtime(epoch)))
                             epoch = int(str(elem['modified_dt'])[:-3])
@@ -157,7 +155,7 @@ def make_map(): ## Run this inside the homepage route
             except:
                 try:
                     if is_good_email(elem):
-                        email_only['name'].append(elem['full_name'])
+                        email_only['name'].append("{} {}".format(elem['first_name'],elem['last_name']))
                         epoch = int(str(elem['created_dt'])[:-3])
                         email_only['created'].append(time.strftime("%Y-%m-%d", time.localtime(epoch)))
                         epoch = int(str(elem['modified_dt'])[:-3])
