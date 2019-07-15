@@ -30,8 +30,6 @@ def is_real(elem):
             return False
         elif len(elem['address'])< 4:
             return False
-        elif elem['full_name'] in store.bad_names:
-            return False
         elif elem['address'] in store.bad_addresses:
             return False
         elif ("{} {}".format(elem['first_name'],elem['last_name']) in store.bad_names):
@@ -39,7 +37,7 @@ def is_real(elem):
         else:
             return True
     except:
-        return False
+        return True
 def is_good_email(elem):
     try:
         if elem['email'].split('@')[1]=='fleetingpro.com':
