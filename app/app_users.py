@@ -96,6 +96,7 @@ def make_map(): ## Run this inside the homepage route
     user_dict['created']=[]
     user_dict['good_address']=[]
     user_dict['email']= []
+    user_dict['phone']= []
     user_dict['lat']=[]
     user_dict['lon']=[]
     user_dict['Type']=[]
@@ -106,6 +107,7 @@ def make_map(): ## Run this inside the homepage route
     email_only['modified'] = []
     email_only['created'] = []
     email_only['email'] = []
+    email_only['phone'] = []
     email_only['Type']=[]
     jobs = set()
 
@@ -123,6 +125,10 @@ def make_map(): ## Run this inside the homepage route
                 except:
                     user_dict['address'].append("{} {} {}".format(elem['address'],'Brooklyn','NY'))
                 user_dict['email'].append(elem['email'])
+                try:
+                    user_dict['phone'].append("({}) {}-{}".format(elem['phone'][0:3],elem['phone'][3:6],elem['phone'][6:]))
+                except:
+                    user_dict['phone'].append('(123)456-7890')
                 user_dict['name'].append("{} {}".format(elem['first_name'],elem['last_name']))
                 user_dict['Type'].append(store.user_type[elem['type']])
                 epoch = int(str(elem['created_dt'])[:-3])
@@ -142,6 +148,10 @@ def make_map(): ## Run this inside the homepage route
                             epoch = int(str(elem['modified_dt'])[:-3])
                             email_only['modified'].append(time.strftime("%Y-%m-%d", time.localtime(epoch)))
                             email_only['email'].append(elem['email'])
+                            try:
+                                email_only['phone'].append("({}) {}-{}".format(elem['phone'][0:3],elem['phone'][3:6],elem['phone'][6:]))
+                            except:
+                                email_only['phone'].append('(123) 456-7890')
                             email_only['Type'].append(store.user_type[elem['type']])
                     except:
                         print(elem['email'])
@@ -159,6 +169,10 @@ def make_map(): ## Run this inside the homepage route
                         epoch = int(str(elem['modified_dt'])[:-3])
                         email_only['modified'].append(time.strftime("%Y-%m-%d", time.localtime(epoch)))
                         email_only['email'].append(elem['email'])
+                        try:
+                            email_only['phone'].append("({}) {}-{}".format(elem['phone'][0:3],elem['phone'][3:6],elem['phone'][6:]))
+                        except:
+                            email_only['phone'].append('(123) 456-7890')
                         email_only['Type'].append(store.user_type[elem['type']])
                 except:
                     print(elem['email'])
@@ -203,9 +217,9 @@ def submission_page_default():
     registered['Background']='Yes'
     emails['Background']='No'
     emails['good_address']=0
-    both = emails.append(registered[['name','email','modified','created','Type','Background','good_address']])
+    both = emails.append(registered[['name','email','modified','phone','created','Type','Background','good_address']])
     user_html = both.sort_values(by = 'created',ascending=False).to_html(classes=['display','nowrap'],
-        columns = ['name','email','modified','created','Type','Background','good_address'],
+        columns = ['name','email','modified','phone','created','Type','Background','good_address'],
         table_id='users',index = False,justify = 'center',float_format=lambda x:'{:.1f}'.format(x))
     return render_template('index_users.html', user_html = user_html)
 
