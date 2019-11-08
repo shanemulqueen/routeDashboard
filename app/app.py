@@ -185,6 +185,10 @@ def make_map(): ## Run this inside the homepage route
 def submission_page_default():
     return render_template('index2.html', map_html = store.map_html)
 
+@app.route('/jobs')
+def submission_page_default():
+    return render_template('jobboards.html', map_html = store.map_html)
+
 if __name__ == '__main__':
 
 

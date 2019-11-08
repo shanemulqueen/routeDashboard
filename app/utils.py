@@ -21,7 +21,7 @@ class object_storer(object):
         except:
             pass
         self.bad_names = {'Shane Mulqueen', 'Ryan M','Ryan McCaulsky', 'Aaditya Raj Mehta', 'Male Gibson', 'Christopher Hollinger',
-                'Shamel Woods', 'Terrell M. Hall', 'Jordan Pasternak', 'Shaquan Jones', 'Sabrena Graham', 'STEPHANIE MAISONNEUVE',
+                'Shamel Woods', 'Terrell M. Hall', 'Jordan Pasternak', 'Sabrena Graham', 'STEPHANIE MAISONNEUVE',
                 'Paul Munguia', 'Dillet Delancy'}
         self.bad_addresses = {'222 E 39th St Apt 22B','81 Prospect Street'}
         self.map_html = "Test"
